@@ -28,6 +28,8 @@ public class TeamOrchestrator : MonoBehaviour
     private int m_distanceBetweenPoints = 6; // Calcul à l'oeil, c'est ce qui permet une couverture complète de la carte en suivant la taille des champs de vision. Needs ref to vision range or something                                             
     public Dictionary<Vector2Int, SearchGridCell> SearchGridCellsDictionary { get; private set; } = new Dictionary<Vector2Int, SearchGridCell>();
     public SearchGridBoundingBox FullGridBoundingBox { get; set; } = new SearchGridBoundingBox();
+    [field: SerializeField]
+    public uint InitialBoundingBoxAreaPercentage { get; set; } = 0;
     public SearchGridBoundingBox InitialSearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
     public SearchGridBoundingBox SecondarySearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
 

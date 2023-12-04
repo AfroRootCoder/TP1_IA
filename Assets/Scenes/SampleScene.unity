@@ -459,8 +459,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_scoreText: {fileID: 153566360}
   m_remainingTimeText: {fileID: 1264221022}
-  m_timeScale: 2
+  m_timeScale: 5
   m_gridMarker: {fileID: 8597453574975943028, guid: 1e7ae302b0814a54fb684fafb6da8ac4, type: 3}
+  <InitialBoundingBoxAreaPercentage>k__BackingField: 50
 --- !u!4 &325813586
 Transform:
   m_ObjectHideFlags: 0
