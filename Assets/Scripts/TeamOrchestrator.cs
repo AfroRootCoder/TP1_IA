@@ -8,6 +8,9 @@ public class TeamOrchestrator : MonoBehaviour
 {
 
     private const float MIN_OBJECTS_DISTANCE = 0.1f; // remettre à 2.0f!!!!
+    public const int MAX_WORKERS = 20;
+    public const int WORKERS_STARTING_AMOUNT = 5;
+
     public List<Collectible> KnownCollectibles { get; private set; } = new List<Collectible>();
     public List<Camp> Camps { get; private set; } = new List<Camp>();
     public List<Worker> WorkersList { get; private set; } = new List<Worker>();
@@ -18,6 +21,8 @@ public class TeamOrchestrator : MonoBehaviour
     private TextMeshProUGUI m_remainingTimeText;
     [SerializeField]
     private float m_timeScale = 1.0f;
+    [SerializeField]
+    private GameObject m_workerPrefab;
 
     private float m_remainingTime;
     private int m_score = 0;
@@ -71,29 +76,6 @@ public class TeamOrchestrator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
-        
-        //foreach (var collectible in KnownCollectibles)
-        //{
-        //    float smallestDistance = 0;
-        //    Worker idealWorker;
-        //    
-        //    foreach (var worker in WorkersList)
-        //    {
-        //        float distance = Vector2.Distance(collectible.transform.position, worker.transform.position);
-        //
-        //        if (distance < smallestDistance)
-        //        {
-        //            smallestDistance = distance;
-        //            idealWorker = worker;
-        //        }
-        //    }
-        //
-        //    //Communicate to worker 
-        //}
-
-
-
     }
 
     public void TryAddCollectible(Collectible collectible)
@@ -104,12 +86,15 @@ public class TeamOrchestrator : MonoBehaviour
         }
 
         KnownCollectibles.Add(collectible);
-        Debug.Log("Collectible added");
-
-        FindClosestWorker(collectible);
+        //Debug.Log("Collectible added");
     }
 
-    private void FindClosestWorker(Collectible collectible)
+    public float GetRemainingTime()
+    {
+        return m_remainingTime;
+    }
+
+    /*private void FindClosestWorker(Collectible collectible)
     {
         Worker idealWorker = WorkersList[0];
         float smallestDistance = Vector2.Distance(collectible.transform.position, idealWorker.transform.position);
@@ -126,12 +111,12 @@ public class TeamOrchestrator : MonoBehaviour
         }
 
         SetWorkerToThisCollectible(idealWorker); //check there is at least one worker
-    }
+    }*/
 
-    private void SetWorkerToThisCollectible(Worker worker)
+    /*private void SetWorkerToThisCollectible(Worker worker)
     {
         worker.SetHasBeenAssignedToThisCollectibleBool(true);
-    }
+    }*/
 
     public void GainResource(ECollectibleType collectibleType)
     {
@@ -185,6 +170,14 @@ public class TeamOrchestrator : MonoBehaviour
     public void OnCampPlaced()
     {
         m_score -= MapGenerator.CampCost.Value;
+    }
+
+    public void SpawnWorker()
+    {
+        var newWorker = Instantiate(m_workerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //WorkersList.Add(newWorker.GetComponent<Worker>());
+        m_score -= MapGenerator.WORKER_COST;
+
     }
 
     public void OnWorkerCreated()

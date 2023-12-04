@@ -20,7 +20,7 @@ public class Worker : MonoBehaviour
     private bool m_isInExtraction = false;
     private float m_currentActionDuration = 0.0f;
 
-    private bool m_HasBeenAssignedToThisCollectible = false;
+    private bool m_isAssigned = false;
 
     private void OnValidate()
     {
@@ -106,9 +106,9 @@ public class Worker : MonoBehaviour
         m_isInDepot = false;
     }
 
-    public void SetHasBeenAssignedToThisCollectibleBool(bool value)
+    public void SetIsAssignedBool(bool value)
     {
-        m_HasBeenAssignedToThisCollectible = value;
+        m_isAssigned = value;
 
         BoolVariable hasBeenAssigned = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("HasBeenAssigned");
 
@@ -118,5 +118,47 @@ public class Worker : MonoBehaviour
         }
 
         hasBeenAssigned.Value = value;
+
     }
+
+    public void SetIsAssignedToBuildCampBool(bool value)
+    {
+        m_isAssigned = value;
+
+        BoolVariable hasBeenAssignedToBuildCamp = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("HasBeenAssignedToBuildCamp");
+
+        if (hasBeenAssignedToBuildCamp == null)
+        {
+            return;
+        }
+
+        hasBeenAssignedToBuildCamp.Value = value;
+
+    }
+
+    public void SetAssignedCollectiblePosition(Vector2 position)
+    {
+        Vector2Variable assignedCollectible = GetComponentInChildren<MBT.Blackboard>().GetVariable<Vector2Variable>("AssignedCollectible");
+
+        if (assignedCollectible == null)
+        {
+            return;
+        }
+
+        assignedCollectible.Value = position;
+    }
+
+    public void SetAssignedCampPosition(Vector2 position)
+    {
+        Vector2Variable assignedCamp = GetComponentInChildren<MBT.Blackboard>().GetVariable<Vector2Variable>("AssignedCamp");
+
+        if (assignedCamp == null)
+        {
+            return;
+        }
+
+        assignedCamp.Value = position;
+
+    }
+
 }
