@@ -1,6 +1,7 @@
 using MBT;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Worker : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class Worker : MonoBehaviour
     private bool m_isInExtraction = false;
     private float m_currentActionDuration = 0.0f;
 
+    private bool m_isInExplorationPhase = false;
     private bool m_isAssigned = false;
+    private bool m_isAssignedToBuildCamp = false;
 
     private void OnValidate()
     {
@@ -29,7 +32,7 @@ public class Worker : MonoBehaviour
 
     private void Start()
     {
-        TeamOrchestrator._Instance.WorkersList.Add(this);
+        //TeamOrchestrator._Instance.WorkersList.Add(this);
     }
 
     private void FixedUpdate()
@@ -106,6 +109,21 @@ public class Worker : MonoBehaviour
         m_isInDepot = false;
     }
 
+    public void SetIsInExplorationPhaseBool(bool value)
+    {
+        m_isInExplorationPhase = value;
+
+        BoolVariable isInExplorationPhase = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("IsInExplorationPhase");
+
+        if (isInExplorationPhase == null)
+        {
+            return;
+        }
+
+        isInExplorationPhase.Value = value;
+
+    }
+
     public void SetIsAssignedBool(bool value)
     {
         m_isAssigned = value;
@@ -123,7 +141,7 @@ public class Worker : MonoBehaviour
 
     public void SetIsAssignedToBuildCampBool(bool value)
     {
-        m_isAssigned = value;
+        m_isAssignedToBuildCamp = value;
 
         BoolVariable hasBeenAssignedToBuildCamp = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("HasBeenAssignedToBuildCamp");
 
@@ -161,4 +179,15 @@ public class Worker : MonoBehaviour
 
     }
 
+    public void SetWaitingTime(float time)
+    {
+        FloatVariable waitingTime = GetComponentInChildren<MBT.Blackboard>().GetVariable<FloatVariable>("WaitingTime");
+
+        if (waitingTime == null)
+        {
+            return;
+        }
+
+        waitingTime.Value = time;
+    }
 }

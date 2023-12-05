@@ -7,14 +7,35 @@ public class ExplorationState : BrainState
 {
     private const float DENSITY_AREA_RADIUS = 5.0f;
 
+    private bool m_LaunchingExplorationPhase = false;
 
     public override void OnEnter()
     {
         Debug.Log("Entering ExplorationState");
+
+        //SetWorkersExplorationBool(true);
+
+        for (int i = 0; i < 5; i++)
+        {
+            TeamOrchestrator._Instance.SpawnWorker();
+        }
+    }
+
+    private void SetWorkersExplorationBool(bool value)
+    {
+        foreach (var worker in TeamOrchestrator._Instance.WorkersList)
+        {
+            worker.SetIsInExplorationPhaseBool(value);
+        }
     }
 
     public override void OnFixedUpdate()
     {
+        if (m_LaunchingExplorationPhase == false)
+        {
+            SetWorkersExplorationBool(true);
+            m_LaunchingExplorationPhase = true;
+        }
     }
 
     public override void OnUpdate()
@@ -25,35 +46,7 @@ public class ExplorationState : BrainState
     {
         Debug.Log("Exiting ExplorationState");
 
-        /*
-        CalculateMinimumCollectiblesNeededPerCamp()
-
-        * Could all be in ExploitationState *
-
-        Team.Orchestrator.EvaluateStrategy()
-            Expand ?
-            Collect ?
-            Do nothing ?
-
-        Team.Orchestrator.OrganizeCollectibles()
-            Sort Collectibles
-            Organize in arrays (subgroups)
-            
-        Team.Orchestrator.DelegateWorkers()
-            1 to camp
-            others to assigned collectible
-
-        Team.Orchestrator.SpawnWorkers() ?
-
-         */
-
-        ////////////////
-
-        //m_stateMachine.SetCollectiblesDensity(CalculateCollectiblesDensity());
-        //Debug.Log("density: " + m_stateMachine.m_collectiblesDensity);
-        //
-        //m_stateMachine.SetAverageCollectiblesDistance(CalculateAverageCollectiblesDistance());
-        //Debug.Log("av. dist.: " + m_stateMachine.m_averageCollectiblesDistance);
+        SetWorkersExplorationBool(false);
     }
 
     /*private float CalculateCollectiblesDensity()

@@ -8,7 +8,7 @@ public class TeamOrchestrator : MonoBehaviour
 {
 
     private const float MIN_OBJECTS_DISTANCE = 0.1f; // remettre à 2.0f!!!!
-    public const int MAX_WORKERS = 20;
+    public const int MAX_WORKERS = 10;
     public const int WORKERS_STARTING_AMOUNT = 5;
 
     public List<Collectible> KnownCollectibles { get; private set; } = new List<Collectible>();
@@ -41,6 +41,9 @@ public class TeamOrchestrator : MonoBehaviour
     public bool FirstAssigned { get; set; } = false;
     public bool MovingFirst { get; set; } = false;
     public uint NumberOfWorkers { get; set; } = 0;
+
+    [SerializeField] private Vector2 m_initialBoundingBoxMin;
+    [SerializeField] private Vector2 m_initialBoundingBoxMax;
 
 
 
@@ -129,7 +132,7 @@ public class TeamOrchestrator : MonoBehaviour
             m_score += 10;//TODO: Turn to const
         }
 
-        Debug.Log("New score = " + m_score);
+        //Debug.Log("New score = " + m_score);
         m_scoreText.text = "Score: " + m_score.ToString();
     }
 
@@ -175,7 +178,7 @@ public class TeamOrchestrator : MonoBehaviour
     public void SpawnWorker()
     {
         var newWorker = Instantiate(m_workerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        //WorkersList.Add(newWorker.GetComponent<Worker>());
+        WorkersList.Add(newWorker.GetComponent<Worker>());
         m_score -= MapGenerator.WORKER_COST;
 
     }
@@ -231,23 +234,29 @@ public class TeamOrchestrator : MonoBehaviour
 
     public void GenerateInitialSearchGridAreaBoundingBox(uint percentageOfOriginalBoundingBox)
     {
-        Debug.Log("test");        
+        //Debug.Log("test");        
+        //
+        //if (percentageOfOriginalBoundingBox > 100)
+        //{
+        //    Debug.LogError("Percentage number is too large, cannot generate initial search area bounding box.");
+        //    return;
+        //}
+        //
+        //float percentage = percentageOfOriginalBoundingBox / 100.0f;
+        //
+        //Vector2 temporaryMin = new Vector2(FullGridBoundingBox.Min.x * percentage, FullGridBoundingBox.Min.y * percentage);
+        //Vector2 temporaryMax = new Vector2(FullGridBoundingBox.Max.x * percentage, FullGridBoundingBox.Max.y * percentage);
+        //
+        //InitialSearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(temporaryMin);
+        //InitialSearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(temporaryMax);
+        //
+        //Debug.Log("test");
 
-        if (percentageOfOriginalBoundingBox > 100)
-        {
-            Debug.LogError("Percentage number is too large, cannot generate initial search area bounding box.");
-            return;
-        }
 
-        float percentage = percentageOfOriginalBoundingBox / 100.0f;
+        //Method with fixed InitialBoundingBox
+        InitialSearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(m_initialBoundingBoxMin);
+        InitialSearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(m_initialBoundingBoxMax);
 
-        Vector2 temporaryMin = new Vector2(FullGridBoundingBox.Min.x * percentage, FullGridBoundingBox.Min.y * percentage);
-        Vector2 temporaryMax = new Vector2(FullGridBoundingBox.Max.x * percentage, FullGridBoundingBox.Max.y * percentage);
-
-        InitialSearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(temporaryMin);
-        InitialSearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(temporaryMax);
-
-        Debug.Log("test");
     }
 
     public SearchGridBoundingBox GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)

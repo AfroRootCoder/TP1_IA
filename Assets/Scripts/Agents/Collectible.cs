@@ -10,7 +10,7 @@ public class Collectible : MonoBehaviour
     {
         if (m_currentCooldown < 0.0f)
         {
-            Debug.Log("Collectible extracted. Last extraction was: " + (COOLDOWN - m_currentCooldown).ToString() + " seconds ago");
+            //Debug.Log("Collectible extracted. Last extraction was: " + (COOLDOWN - m_currentCooldown).ToString() + " seconds ago");
             m_currentCooldown = COOLDOWN;
             return ECollectibleType.Regular;
         }
@@ -36,6 +36,10 @@ public class Collectible : MonoBehaviour
         return m_position;
     }
 
+    public float GetCurrentCooldown()
+    {
+        return m_currentCooldown;
+    }
 }
 
 public enum ECollectibleType

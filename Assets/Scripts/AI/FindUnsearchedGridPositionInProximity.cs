@@ -17,6 +17,8 @@ public class FindUnsearchedGridPositionInProximity : Leaf
 
     public override void OnEnter()
     {
+        //Debug.Log("Entered full search");
+
         m_currentPosition = new Vector2(m_agentTransform.Value.position.x, m_agentTransform.Value.position.y);
         m_teamOrchestrator = TeamOrchestrator._Instance;
         m_searchGridCellDictionary = m_teamOrchestrator.SearchGridCellsDictionary;
