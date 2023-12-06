@@ -1,3 +1,4 @@
+using MBT;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,14 +6,13 @@ using UnityEngine;
 
 public class DoomState : BrainState
 {
-
-
-
     public override void OnEnter()
     {
         Debug.Log("Entering DoomState");
+        UnassignWorkers();
         PairWorkers();
         FindClosestFollowerForEachLeader();
+        SetDoomStateInWorkers();
     }
 
     public override void OnFixedUpdate()
@@ -51,31 +51,58 @@ public class DoomState : BrainState
 
     private void FindClosestFollowerForEachLeader()
     {
-        foreach (var worker in TeamOrchestrator._Instance.WorkersList)
+        foreach (var leader in TeamOrchestrator._Instance.WorkersList)
         {
             float distanceBetweenLeaderAndFollower = float.MaxValue;
-            if (worker.GetLeadershipStatus() == false)
+            if (!leader.GetLeadershipStatus())
             {
                 continue;
             }
             else
             {
-                foreach (var worker2 in TeamOrchestrator._Instance.WorkersList)
+                int closestFollowerIndex = 0;
+
+                for (int i = 0; i < TeamOrchestrator._Instance.WorkersList.Count; i++)
                 {
-                    if (worker2.GetLeadershipStatus() == true)
+
+                    if (TeamOrchestrator._Instance.WorkersList[i].GetLeadershipStatus()|| 
+                        TeamOrchestrator._Instance.WorkersList[i].GetAssignationStatus())
                     {
                         continue;
                     }
                     else
                     {
-                        float distance = Vector2.Distance(worker.GetPosition(), worker2.GetPosition());
+                        float distance = Vector2.Distance(leader.GetPosition(), TeamOrchestrator._Instance.WorkersList[i].GetPosition());
                         if (distance < distanceBetweenLeaderAndFollower)
                         {
                             distanceBetweenLeaderAndFollower = distance;
+                            closestFollowerIndex = i;
+                        }
+                        if (i == TeamOrchestrator._Instance.WorkersList.Count - 1)
+                        {
+                            leader.SetFollower(closestFollowerIndex);
+                            leader.SetIsAssignedBool(true);
+                            TeamOrchestrator._Instance.WorkersList[closestFollowerIndex].SetIsAssignedBool(true);
                         }
                     }
                 }
             }
+        }
+    }
+
+    private void SetDoomStateInWorkers()
+    {
+        foreach(var worker in TeamOrchestrator._Instance.WorkersList)
+        {
+            worker.SetIsInDoomPhaseBool(true);
+        }
+    }
+
+    private void UnassignWorkers()
+    {
+        foreach(var worker in TeamOrchestrator._Instance.WorkersList)
+        {
+            worker.SetIsAssignedBool(false);
         }
     }
 }

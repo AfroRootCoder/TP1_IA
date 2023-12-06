@@ -26,6 +26,10 @@ public class Worker : MonoBehaviour
     private bool m_isAssignedToBuildCamp = false;
     private bool m_isALeader = false;
 
+    private bool m_isInDoomState = false;
+
+    private Worker m_follower;
+
     private void OnValidate()
     {
         m_radiusDebugTransform.localScale = new Vector3(m_radius, m_radius, m_radius);
@@ -125,6 +129,20 @@ public class Worker : MonoBehaviour
 
     }
 
+    public void SetIsInDoomPhaseBool(bool value)
+    {
+        m_isInDoomState = value;
+        BoolVariable isInDoomState = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("IsInDoomState");
+
+        if (isInDoomState == null)
+        {
+            return;
+        }
+
+        isInDoomState.Value = value;
+        Debug.Log("SettingDoomState");
+    }
+
     public void SetIsAssignedBool(bool value)
     {
         m_isAssigned = value;
@@ -205,5 +223,22 @@ public class Worker : MonoBehaviour
     public Vector2 GetPosition()
     {
         return this.transform.position;
+    }
+
+    public void SetFollower (int index)
+    {
+        m_follower = TeamOrchestrator._Instance.WorkersList[index];
+        m_follower.m_isAssigned = true;
+        m_isAssigned = true;
+    }
+
+    public Worker GetFollower()
+    {
+        return m_follower;
+    }
+
+    public bool GetAssignationStatus()
+    {
+        return m_isAssigned;
     }
 }
