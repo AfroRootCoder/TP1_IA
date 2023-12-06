@@ -24,6 +24,7 @@ public class Worker : MonoBehaviour
     private bool m_isInExplorationPhase = false;
     private bool m_isAssigned = false;
     private bool m_isAssignedToBuildCamp = false;
+    private bool m_isALeader = false;
 
     private void OnValidate()
     {
@@ -189,5 +190,20 @@ public class Worker : MonoBehaviour
         }
 
         waitingTime.Value = time;
+    }
+
+    public bool GetLeadershipStatus()
+    {
+        return m_isALeader;
+    }
+
+    public void SetLeadershipStatus(bool isALeader)
+    {
+        m_isALeader = isALeader;
+    }
+
+    public Vector2 GetPosition()
+    {
+        return this.transform.position;
     }
 }
