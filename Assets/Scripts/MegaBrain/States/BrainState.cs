@@ -1,5 +1,3 @@
-
-
 public class BrainState : IState
 {
     protected MegaBrainSM m_stateMachine;
