@@ -541,8 +541,8 @@ MonoBehaviour:
   m_workerPrefab: {fileID: 6152492823319311160, guid: c8aa60fecc0d0c347af67549404eb1f1, type: 3}
   m_gridMarker: {fileID: 8597453574975943028, guid: 1e7ae302b0814a54fb684fafb6da8ac4, type: 3}
   <InitialBoundingBoxAreaPercentage>k__BackingField: 50
-  m_initialBoundingBoxMin: {x: -50, y: -50}
-  m_initialBoundingBoxMax: {x: 50, y: 50}
+  <InitialBoundingBoxMin>k__BackingField: {x: -50, y: -50}
+  <InitialBoundingBoxMax>k__BackingField: {x: 50, y: 50}
 --- !u!4 &325813586
 Transform:
   m_ObjectHideFlags: 0
