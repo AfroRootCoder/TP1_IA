@@ -6,8 +6,6 @@ public class ExplorationState : BrainState
 
     public override void OnEnter()
     {
-        Debug.Log("Entering ExplorationState");
-
         TeamOrchestrator._Instance.SpawnStartingWorkers();
     }
 
@@ -34,8 +32,6 @@ public class ExplorationState : BrainState
 
     public override void OnExit()
     {
-        Debug.Log("Exiting ExplorationState");
-
         SetWorkersExplorationBool(false);
     }
 

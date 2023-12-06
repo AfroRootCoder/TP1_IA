@@ -14,16 +14,14 @@ public class MoveTowards2D : Leaf
     {
         Vector2 target = targetPosition.Value;
         Transform obj = transformToMove.Value;
-        // Move as long as distance is greater than min. distance
+
         float dist = Vector2.Distance(target, obj.position);
         if (dist > minDistance)
         {
-            // Move towards target
             obj.position = Vector2.MoveTowards(
                 obj.position,
                 target,
-                (speed > dist) ? dist : speed
-            );
+                (speed > dist) ? dist : speed);
             return NodeResult.running;
         }
         else

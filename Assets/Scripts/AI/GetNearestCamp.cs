@@ -14,7 +14,6 @@ public class GetNearestCamp : Leaf
     {
         if (TeamOrchestrator._Instance.Camps.Count == 0)
         {
-            //On n'a pas trouvé de camp. On retourne faux
             m_nearestCampVec2.Value = new Vector2(1, 1);
             return NodeResult.success;
         }
@@ -30,7 +29,6 @@ public class GetNearestCamp : Leaf
             }
         }
 
-        //Ceci est le camp le plus près. On update sa valeur dans le blackboard et retourne true
         m_nearestCampVec2.Value = new Vector2(nearestCamp.transform.position.x, nearestCamp.transform.position.y);
         return NodeResult.success;
 

@@ -60,7 +60,6 @@ public class Worker : MonoBehaviour
             m_currentExtractingCollectible = collectible;
             m_currentActionDuration = EXTRACTION_DURATION;
             m_isInExtraction = true;
-            //Start countdown to collect it
         }
 
         var camp = collision.GetComponent<Camp>();
@@ -68,7 +67,6 @@ public class Worker : MonoBehaviour
         {
             m_currentActionDuration = DEPOSIT_DURATION;
             m_isInDepot = true;
-            //Start countdown to deposit my current collectible (if it exists)
         }
     }
 

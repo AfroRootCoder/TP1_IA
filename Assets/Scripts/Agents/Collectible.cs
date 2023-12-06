@@ -10,12 +10,10 @@ public class Collectible : MonoBehaviour
     {
         if (m_currentCooldown < 0.0f)
         {
-            //Debug.Log("Collectible extracted. Last extraction was: " + (COOLDOWN - m_currentCooldown).ToString() + " seconds ago");
             m_currentCooldown = COOLDOWN;
             return ECollectibleType.Regular;
         }
 
-        //We have been extracted twice under 5 seconds
         TeamOrchestrator._Instance.KnownCollectibles.Remove(this);
         Destroy(gameObject);
         return ECollectibleType.Special;
@@ -34,11 +32,6 @@ public class Collectible : MonoBehaviour
     public Vector2 GetPosition()
     {
         return m_position;
-    }
-
-    public float GetCurrentCooldown()
-    {
-        return m_currentCooldown;
     }
 }
 

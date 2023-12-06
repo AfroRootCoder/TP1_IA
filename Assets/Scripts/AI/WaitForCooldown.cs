@@ -22,7 +22,6 @@ public class WaitForCooldown : Leaf
     {
         if (timer >= time.Value)
         {
-            // Reset timer in case continueOnRestart option is active
             if (continueOnRestart)
             {
                 timer = (randomDeviation == 0f) ? 0f : Random.Range(-randomDeviation, randomDeviation);

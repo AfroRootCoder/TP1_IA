@@ -16,13 +16,12 @@ public class MapGenerator : MonoBehaviour
     private int rejectionSamples = 30;
 
     [field: SerializeField]
-	public static RandomIntBetweenRange CampCost { get; private set; } = new RandomIntBetweenRange(5, 80); //Valeur à laquelle vos workers peuvent accéder
+	public static RandomIntBetweenRange CampCost { get; private set; } = new RandomIntBetweenRange(5, 80);
     [SerializeField]
-	public RandomIntBetweenRange m_mapDimension; //Valeur à laquelle vos workers peuvent accéder
+	public RandomIntBetweenRange m_mapDimension;
     [SerializeField]
-	private RandomIntBetweenRange m_nodesDensity;	//Valeur INCONNUE de vos workers
-	public static RandomIntBetweenRange SimulationDuration { get; private set; } = new RandomIntBetweenRange(10, 1000); //In seconds. Between 10 and 1000
-		//Valeur à laquelle vos workers peuvent accéder
+	private RandomIntBetweenRange m_nodesDensity;
+	public static RandomIntBetweenRange SimulationDuration { get; private set; } = new RandomIntBetweenRange(10, 1000);
 
 
     private void Awake()

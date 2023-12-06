@@ -8,8 +8,6 @@ public class DoomState : BrainState
 
     public override void OnEnter()
     {
-        Debug.Log("Entering DoomState");
-
         PairUpWorkers();
     }
 

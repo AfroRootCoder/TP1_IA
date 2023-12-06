@@ -19,7 +19,6 @@ namespace MBT
             
             if (TeamOrchestrator._Instance.KnownCollectibles.Count == 0)
             {
-                //On n'a pas trouvé de collectible. On retourne sans avoir updaté
                 return NodeResult.failure;
             }
 
@@ -32,7 +31,6 @@ namespace MBT
                     if (collectible.GetPosition() == TeamOrchestrator._Instance.OverUsedCollectibles[i].GetPosition())
                     {
                         notAvailable = true;
-                        Debug.Log("not available");
                         break;
                     }
                 }
@@ -49,7 +47,6 @@ namespace MBT
                 }
             }
 
-            //Ceci est le camp le plus près. On update sa valeur dans le blackboard et retourne true
             if (nearestCollectible != null)
             {
                 TeamOrchestrator._Instance.OverUsedCollectibles.Add(nearestCollectible);
@@ -60,7 +57,6 @@ namespace MBT
             }
             else
             {
-                Debug.Log("Empty collectible");
                 return NodeResult.failure;
             }
 

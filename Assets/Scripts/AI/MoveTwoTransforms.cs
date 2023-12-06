@@ -16,11 +16,10 @@ public class MoveTwoTransforms : Leaf
         Vector2 target = targetPosition.Value;
         Transform obj = transformToMove.Value;
         Transform obj2 = otherTransformToMove.Value;
-        // Move as long as distance is greater than min. distance
+
         float dist = Vector2.Distance(target, obj.position);
         if (dist > minDistance)
         {
-            // Move towards target
             obj.position = Vector2.MoveTowards(
                 obj.position,
                 target,
