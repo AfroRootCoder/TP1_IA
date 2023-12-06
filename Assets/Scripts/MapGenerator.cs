@@ -35,7 +35,7 @@ public class MapGenerator : MonoBehaviour
 		TeamOrchestrator._Instance.GenerateSearchGrid(m_mapDimension.Value);
         //TeamOrchestrator._Instance.InstantiateMarkersForSearchGridVisualRepresentation();
 		TeamOrchestrator._Instance.GenerateFullSearchGridAreaBoundingBox();
-		TeamOrchestrator._Instance.GenerateSearchGridAreaBoundingBox(TeamOrchestrator._Instance.InitialBoundingBoxMin, TeamOrchestrator._Instance.InitialBoundingBoxMax);
+		TeamOrchestrator._Instance.GenerateInitialSearchGridAreaBoundingBox(TeamOrchestrator._Instance.InitialBoundingBoxAreaPercentage);
     }
 
     private void Update()

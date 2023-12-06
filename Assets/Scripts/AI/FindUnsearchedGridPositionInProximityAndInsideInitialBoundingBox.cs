@@ -3,8 +3,8 @@ using MBT;
 using System.Collections.Generic;
 
 [AddComponentMenu("")]
-[MBTNode(name = "Engin2/Find Unsearched Grid Position In Proximity And Inside Bounding Box")]
-public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
+[MBTNode(name = "Engin2/Find Unsearched Grid Position In Proximity And Inside Initial Bounding Box")]
+public class FindUnsearchedGridPositionInProximityAndInsideInitialBoundingBox : Leaf
 {
     private Vector2 m_currentPosition = new Vector2();
     private TeamOrchestrator m_teamOrchestrator = null;
@@ -18,7 +18,7 @@ public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
         m_currentPosition = new Vector2(m_agentTransform.Value.position.x, m_agentTransform.Value.position.y);
         m_teamOrchestrator = TeamOrchestrator._Instance;
         m_searchGridCellDictionary = m_teamOrchestrator.SearchGridCellsDictionary;
-        m_boundingBox = m_teamOrchestrator.SearchGridAreaBoundingBox;
+        m_boundingBox = m_teamOrchestrator.InitialSearchGridAreaBoundingBox;
     }
 
     public override NodeResult Execute()
@@ -68,11 +68,6 @@ public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
                 minDistance = distance;
                 nearestPosition = gridPosition;
             }
-        }
-
-        if (nearestPosition == Vector2Int.zero)
-        {
-            m_teamOrchestrator.ReadjustBoundingBox();
         }
 
         return nearestPosition;

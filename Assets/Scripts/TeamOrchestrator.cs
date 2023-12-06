@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TeamOrchestrator : MonoBehaviour
 {
-    private const int BOUNDING_BOX_INCREMENTATION = 50;
+
     private const float MIN_OBJECTS_DISTANCE = 0.1f; // remettre à 2.0f!!!!
     public const int MAX_WORKERS = 10;
     public const int WORKERS_STARTING_AMOUNT = 5;
@@ -26,7 +26,6 @@ public class TeamOrchestrator : MonoBehaviour
 
     private float m_remainingTime;
     private int m_score = 0;
-    private int m_boundingBoxMultiplier = 1;
 
     [field: Header("SEARCH GRID")]
     [SerializeField]
@@ -36,16 +35,15 @@ public class TeamOrchestrator : MonoBehaviour
     public SearchGridBoundingBox FullGridBoundingBox { get; set; } = new SearchGridBoundingBox();
     [field: SerializeField]
     public uint InitialBoundingBoxAreaPercentage { get; set; } = 0;
-    public SearchGridBoundingBox SearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
-
-    //public SearchGridBoundingBox SecondarySearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
+    public SearchGridBoundingBox InitialSearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
+    public SearchGridBoundingBox SecondarySearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
 
     public bool FirstAssigned { get; set; } = false;
     public bool MovingFirst { get; set; } = false;
     public uint NumberOfWorkers { get; set; } = 0;
 
-    [field: SerializeField] public Vector2 InitialBoundingBoxMin { get; private set; }
-    [field: SerializeField] public Vector2 InitialBoundingBoxMax { get; private set; }
+    [SerializeField] private Vector2 m_initialBoundingBoxMin;
+    [SerializeField] private Vector2 m_initialBoundingBoxMax;
 
 
 
@@ -243,33 +241,44 @@ public class TeamOrchestrator : MonoBehaviour
         }
     }
 
-    public void GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)
+    public void GenerateInitialSearchGridAreaBoundingBox(uint percentageOfOriginalBoundingBox)
     {
-        SearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(min);
-        SearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(max);
+        //Debug.Log("test");        
+        //
+        //if (percentageOfOriginalBoundingBox > 100)
+        //{
+        //    Debug.LogError("Percentage number is too large, cannot generate initial search area bounding box.");
+        //    return;
+        //}
+        //
+        //float percentage = percentageOfOriginalBoundingBox / 100.0f;
+        //
+        //Vector2 temporaryMin = new Vector2(FullGridBoundingBox.Min.x * percentage, FullGridBoundingBox.Min.y * percentage);
+        //Vector2 temporaryMax = new Vector2(FullGridBoundingBox.Max.x * percentage, FullGridBoundingBox.Max.y * percentage);
+        //
+        //InitialSearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(temporaryMin);
+        //InitialSearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(temporaryMax);
+        //
+        //Debug.Log("test");
+
+
+        //Method with fixed InitialBoundingBox
+        InitialSearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(m_initialBoundingBoxMin);
+        InitialSearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(m_initialBoundingBoxMax);
+
     }
 
-    public void ReadjustBoundingBox()
+    public SearchGridBoundingBox GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)
     {
-        float incrementation = BOUNDING_BOX_INCREMENTATION * m_boundingBoxMultiplier;
-        Vector2 min = new Vector2(_Instance.InitialBoundingBoxMin.x - incrementation, InitialBoundingBoxMin.y - incrementation);
-        Vector2 max = new Vector2(_Instance.InitialBoundingBoxMax.x + incrementation, InitialBoundingBoxMax.y + incrementation);
+        // Mettre un check 
 
-        m_boundingBoxMultiplier++;
-        TeamOrchestrator._Instance.GenerateSearchGridAreaBoundingBox(min, max);
+        SearchGridBoundingBox searchGridBoundingBox = new SearchGridBoundingBox();
+
+        searchGridBoundingBox.Min = FindClosestCellToApproximatePosition(min);
+        searchGridBoundingBox.Max = FindClosestCellToApproximatePosition(max);
+
+        return searchGridBoundingBox;
     }
-
-    //public SearchGridBoundingBox GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)
-    //{
-    //    // Mettre un check 
-    //
-    //    SearchGridBoundingBox searchGridBoundingBox = new SearchGridBoundingBox();
-    //
-    //    searchGridBoundingBox.Min = FindClosestCellToApproximatePosition(min);
-    //    searchGridBoundingBox.Max = FindClosestCellToApproximatePosition(max);
-    //
-    //    return searchGridBoundingBox;
-    //}
 
     private Vector2Int FindClosestCellToApproximatePosition(Vector2 approximatePosition)
     {
@@ -322,3 +331,21 @@ public class SearchGridBoundingBox
     public Vector2Int Max { get; set; }
 
 }
+
+
+//public struct SearchGridCell
+//{
+//    public Vector2 GridPosition { get; set; }
+//    public bool GridCellAssignedForSearch { get; set; }
+//    public bool PositionSearched { get; set; }    
+//
+//    public SearchGridCell(Vector2 position)
+//    {
+//        GridPosition = position;
+//        GridCellAssignedForSearch = false;
+//        PositionSearched = false;
+//    }
+//}
+
+
+
