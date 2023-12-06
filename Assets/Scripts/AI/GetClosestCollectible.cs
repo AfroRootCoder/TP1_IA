@@ -15,28 +15,55 @@ namespace MBT
 
         public override NodeResult Execute()
         {
+            Debug.Log(TeamOrchestrator._Instance.KnownCollectibles.Count - TeamOrchestrator._Instance.OverUsedCollectibles.Count);
+            
             if (TeamOrchestrator._Instance.KnownCollectibles.Count == 0)
             {
                 //On n'a pas trouvé de collectible. On retourne sans avoir updaté
                 return NodeResult.failure;
             }
 
-            Collectible nearestCamp = TeamOrchestrator._Instance.KnownCollectibles[0];
-
-            foreach (var camp in TeamOrchestrator._Instance.KnownCollectibles)
+            Collectible nearestCollectible = null;
+            foreach (var collectible in TeamOrchestrator._Instance.KnownCollectibles)
             {
-                if (Vector3.Distance(nearestCamp.transform.position, m_workerTransform.Value.position)
-                    > Vector3.Distance(camp.transform.position, m_workerTransform.Value.position))
+                bool notAvailable = false;
+                for (int i = 0; i < TeamOrchestrator._Instance.OverUsedCollectibles.Count; i++)
                 {
-                    nearestCamp = camp;
+                    if (collectible.GetPosition() == TeamOrchestrator._Instance.OverUsedCollectibles[i].GetPosition())
+                    {
+                        notAvailable = true;
+                        Debug.Log("not available");
+                        break;
+                    }
+                }
+                if (notAvailable == true)
+                {
+                    continue;
+                }
+                nearestCollectible = collectible;
+
+                if (Vector3.Distance(nearestCollectible.transform.position, m_workerTransform.Value.position)
+                    > Vector3.Distance(collectible.transform.position, m_workerTransform.Value.position))
+                {
+                    nearestCollectible = collectible;
                 }
             }
 
             //Ceci est le camp le plus près. On update sa valeur dans le blackboard et retourne true
-            m_closestCollectiblePos.Value =
-                new Vector2(nearestCamp.transform.position.x, nearestCamp.transform.position.y);
+            if (nearestCollectible != null)
+            {
+                TeamOrchestrator._Instance.OverUsedCollectibles.Add(nearestCollectible);
+                m_closestCollectiblePos.Value =
+                    new Vector2(nearestCollectible.transform.position.x, nearestCollectible.transform.position.y);
+                Debug.Log(m_closestCollectiblePos.Value);
+                return NodeResult.success;
+            }
+            else
+            {
+                Debug.Log("Empty collectible");
+                return NodeResult.failure;
+            }
 
-            return NodeResult.success;
         }
     }
 }

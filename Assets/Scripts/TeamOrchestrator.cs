@@ -8,10 +8,11 @@ public class TeamOrchestrator : MonoBehaviour
 {
     private const int BOUNDING_BOX_INCREMENTATION = 50;
     private const float MIN_OBJECTS_DISTANCE = 0.1f; // remettre à 2.0f!!!!
-    public const int MAX_WORKERS = 40;
+    public const int MAX_WORKERS = 10;
     public const int WORKERS_STARTING_AMOUNT = 5;
 
     public List<Collectible> KnownCollectibles { get; private set; } = new List<Collectible>();
+    public List<Collectible> OverUsedCollectibles { get; private set; } = new List<Collectible>();
     public List<Camp> Camps { get; private set; } = new List<Camp>();
     public List<Worker> WorkersList { get; private set; } = new List<Worker>();
 

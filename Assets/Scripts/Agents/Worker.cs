@@ -2,6 +2,7 @@ using MBT;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Worker : MonoBehaviour
 {
@@ -22,8 +23,13 @@ public class Worker : MonoBehaviour
     private float m_currentActionDuration = 0.0f;
 
     private bool m_isInExplorationPhase = false;
+    private bool m_isInDoomState = false;
     private bool m_isAssigned = false;
     private bool m_isAssignedToBuildCamp = false;
+    private bool m_hasFollower = false;
+
+    public bool IsLeader { get; private set; } = false;
+    public Worker Leader { get; private set; } = null;
 
     private void OnValidate()
     {
@@ -124,6 +130,21 @@ public class Worker : MonoBehaviour
 
     }
 
+    public void SetIsInDoomStateBool(bool value)
+    {
+        m_isInDoomState = value;
+
+        BoolVariable isInDoomState = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("IsInDoomState");
+
+        if (isInDoomState == null)
+        {
+            return;
+        }
+
+        isInDoomState.Value = value;
+
+    }
+
     public void SetIsAssignedBool(bool value)
     {
         m_isAssigned = value;
@@ -189,5 +210,48 @@ public class Worker : MonoBehaviour
         }
 
         waitingTime.Value = time;
+    }
+
+    public void SetAsLeader(bool boolValue)
+    {
+        IsLeader = boolValue;
+
+        BoolVariable isLeader = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("IsLeader");
+
+        if (isLeader == null)
+        {
+            return;
+        }
+
+        isLeader.Value = boolValue;
+    }
+
+    public void AssignFollower(Transform value)
+    {
+        m_hasFollower = true;
+
+        BoolVariable hasFollower = GetComponentInChildren<MBT.Blackboard>().GetVariable<BoolVariable>("HasFollower");
+
+        if (hasFollower == null)
+        {
+            return;
+        }
+
+        hasFollower.Value = value;
+
+
+        TransformVariable follower = GetComponentInChildren<MBT.Blackboard>().GetVariable<TransformVariable>("Follower");
+
+        if (follower == null)
+        {
+            return;
+        }
+
+        follower.Value = value;
+    }
+
+    public void AssignLeader(Worker leader)
+    {
+        Leader = leader;
     }
 }
