@@ -18,12 +18,18 @@ public class Organisms
         AssignWorkers();
     }
 
+    public Organisms(Worker worker, Collectible collectible)
+    {
+        m_collectiblesAmount = 1;
+
+        worker.SetIsAssignedBool(true);
+        worker.SetIsAssignedToBuildCampBool(true);
+        worker.SetAssignedCampPosition(collectible.GetPosition());
+        worker.SetAssignedCollectiblePosition(collectible.GetPosition());
+    }
+
     private Vector2 EvaluateCampPlacement()
     {
-        //Check for case of 1 collectible
-        //will place camp on top of collectible
-        //maybe frenzy mode ?
-
         Vector2 idealPosition = new Vector2();
 
         for (int i = 0; i < m_collectiblesAmount; i++)
