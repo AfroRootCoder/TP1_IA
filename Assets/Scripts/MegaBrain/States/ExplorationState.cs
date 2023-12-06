@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplorationState : BrainState
@@ -13,12 +10,7 @@ public class ExplorationState : BrainState
     {
         Debug.Log("Entering ExplorationState");
 
-        //SetWorkersExplorationBool(true);
-
-        for (int i = 0; i < 5; i++)
-        {
-            TeamOrchestrator._Instance.SpawnWorker();
-        }
+        TeamOrchestrator._Instance.SpawnStartingWorkers();
     }
 
     private void SetWorkersExplorationBool(bool value)
@@ -48,25 +40,6 @@ public class ExplorationState : BrainState
 
         SetWorkersExplorationBool(false);
     }
-
-    /*private float CalculateCollectiblesDensity()
-    {
-        float collectiblesAmount = 0;
-        
-        foreach (var collectible in TeamOrchestrator._Instance.KnownCollectibles)
-        {
-            collectiblesAmount++;
-        }
-
-        return (float)(collectiblesAmount / (Math.PI * DENSITY_AREA_RADIUS * DENSITY_AREA_RADIUS));
-    }
-
-    private float CalculateAverageCollectiblesDistance()
-    {
-        double poisson = DENSITY_AREA_RADIUS / (2 * Math.Sqrt(m_stateMachine.m_collectiblesDensity));
-
-        return (float)poisson;
-    }*/
 
     public override bool CanEnter(IState currentState)
     {

@@ -183,6 +183,15 @@ public class TeamOrchestrator : MonoBehaviour
 
     }
 
+    public void SpawnStartingWorkers()
+    {
+        for (int i = 0; i < WORKERS_STARTING_AMOUNT; i++)
+        {
+            var newWorker = Instantiate(m_workerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            WorkersList.Add(newWorker.GetComponent<Worker>());
+        }
+    }
+
     public void OnWorkerCreated()
     {
         //TODO élèves. À vous de trouver quand utiliser cette méthode et l'utiliser.
