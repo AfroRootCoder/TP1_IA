@@ -55,8 +55,7 @@ public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
                 continue;
             }
 
-            if (gridCell.GridCellAssignedForSearch
-                || gridCell.PositionSearched)
+            if (gridCell.GridCellAssignedForSearch)
             {
                 continue;
             }
@@ -77,6 +76,4 @@ public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
 
         return nearestPosition;
     }
-
-
 }

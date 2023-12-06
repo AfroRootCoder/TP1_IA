@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using MBT;
-
 
 [AddComponentMenu("")]
 [MBTNode(name = "Engin2/Generate Camp Placement")]

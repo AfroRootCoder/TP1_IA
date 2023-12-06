@@ -1,6 +1,4 @@
 using MBT;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [MBTNode("Engin2/Generate Point Around Self")]

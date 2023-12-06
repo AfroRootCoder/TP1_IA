@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +10,6 @@ public class MegaBrainSM : BaseStateMachine<BrainState>
     [field: SerializeField] public float ExplorationStateDuration { get; private set; }
 
 
-    ///////
 
     protected override void CreatePossibleStates()
     {

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ExplorationState : BrainState
 {
-    private const float DENSITY_AREA_RADIUS = 5.0f;
-
     private bool m_LaunchingExplorationPhase = false;
 
     public override void OnEnter()

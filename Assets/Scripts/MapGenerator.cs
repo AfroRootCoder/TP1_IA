@@ -25,15 +25,13 @@ public class MapGenerator : MonoBehaviour
 		//Valeur à laquelle vos workers peuvent accéder
 
 
-
     private void Awake()
     {
 		GenerateValues();
 		GenerateMap();
 		ShiftMap();
 
-		TeamOrchestrator._Instance.GenerateSearchGrid(m_mapDimension.Value);
-        //TeamOrchestrator._Instance.InstantiateMarkersForSearchGridVisualRepresentation();
+		TeamOrchestrator._Instance.GenerateSearchGrid(m_mapDimension.Value);        
 		TeamOrchestrator._Instance.GenerateFullSearchGridAreaBoundingBox();
 		TeamOrchestrator._Instance.GenerateSearchGridAreaBoundingBox(TeamOrchestrator._Instance.BoundingBoxMin, TeamOrchestrator._Instance.BoundingBoxMax);
     }
@@ -53,7 +51,6 @@ public class MapGenerator : MonoBehaviour
             Seed = (int)DateTime.Now.Ticks;
         }
 		UnityEngine.Random.InitState(Seed);
-
 
 		CampCost.RollValue();
 

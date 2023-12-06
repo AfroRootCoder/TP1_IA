@@ -7,7 +7,8 @@ using UnityEngine;
 public class TeamOrchestrator : MonoBehaviour
 {
     private const int BOUNDING_BOX_INCREMENTATION = 50;
-    private const float MIN_OBJECTS_DISTANCE = 2.0f; // remettre à 2.0f!!!!
+    private const float MIN_OBJECTS_DISTANCE = 2.0f;
+    private const int SPECIAL_COLLECTIBLE_VALUE = 10;
     public const int MAX_WORKERS = 40;
     public const int WORKERS_STARTING_AMOUNT = 5;
 
@@ -32,21 +33,12 @@ public class TeamOrchestrator : MonoBehaviour
     [field: Header("SEARCH GRID")]
     [SerializeField]
     private GameObject m_gridMarker = null;
-    private int m_distanceBetweenPoints = 6; // Calcul à l'oeil, c'est ce qui permet une couverture complète de la carte en suivant la taille des champs de vision. Needs ref to vision range or something                                             
+    private int m_distanceBetweenPoints = 6;                                    
     public Dictionary<Vector2Int, SearchGridCell> SearchGridCellsDictionary { get; private set; } = new Dictionary<Vector2Int, SearchGridCell>();
-    public SearchGridBoundingBox FullGridBoundingBox { get; set; } = new SearchGridBoundingBox();
-    [field: SerializeField]
-    public uint InitialBoundingBoxAreaPercentage { get; set; } = 0;
+    public SearchGridBoundingBox FullGridBoundingBox { get; set; } = new SearchGridBoundingBox();    
     public SearchGridBoundingBox SearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
-    public SearchGridBoundingBox SecondarySearchGridAreaBoundingBox { get; set; } = new SearchGridBoundingBox();
-
-    public bool FirstAssigned { get; set; } = false;
-    public bool MovingFirst { get; set; } = false;
-    public uint NumberOfWorkers { get; set; } = 0;
-
     [field: SerializeField] public Vector2 BoundingBoxMin { get; private set; }
     [field:SerializeField] public Vector2 BoundingBoxMax { get; private set; }
-
 
 
     public static TeamOrchestrator _Instance
@@ -62,8 +54,8 @@ public class TeamOrchestrator : MonoBehaviour
             _Instance = this;            
             return;
         }
-        Destroy(this);
-        
+
+        Destroy(this);        
     }
 
     private void Start()
@@ -79,10 +71,6 @@ public class TeamOrchestrator : MonoBehaviour
         m_remainingTimeText.text = "Remaining time: " + m_remainingTime.ToString("#.00");
     }
 
-    private void FixedUpdate()
-    {
-    }
-
     public void TryAddCollectible(Collectible collectible)
     {
         if (KnownCollectibles.Contains(collectible))
@@ -90,8 +78,7 @@ public class TeamOrchestrator : MonoBehaviour
             return;
         }
 
-        KnownCollectibles.Add(collectible);
-        //Debug.Log("Collectible added");
+        KnownCollectibles.Add(collectible);        
     }
 
     public float GetRemainingTime()
@@ -107,10 +94,9 @@ public class TeamOrchestrator : MonoBehaviour
         }
         if (collectibleType == ECollectibleType.Special)
         {
-            m_score += 10;//TODO: Turn to const
+            m_score += SPECIAL_COLLECTIBLE_VALUE;
         }
-
-        //Debug.Log("New score = " + m_score);
+                
         m_scoreText.text = "Score: " + m_score.ToString();
     }
 
@@ -158,7 +144,6 @@ public class TeamOrchestrator : MonoBehaviour
         var newWorker = Instantiate(m_workerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         WorkersList.Add(newWorker.GetComponent<Worker>());
         m_score -= MapGenerator.WORKER_COST;
-
     }
 
     public void SpawnStartingWorkers()
@@ -173,9 +158,6 @@ public class TeamOrchestrator : MonoBehaviour
     public void GenerateSearchGrid(int mapDimensionValue)
     {
         Debug.Log("Map dimension value in Search grid : " + mapDimensionValue);
-
-        //Pour fin de test et réduire la taille du grid
-        //mapDimensionValue = 20;
 
         int numberOfPointsOnRowOrColumn = (mapDimensionValue / m_distanceBetweenPoints) + 1;
         int gridCenterOffset = (mapDimensionValue / m_distanceBetweenPoints) * m_distanceBetweenPoints / 2;
@@ -230,18 +212,6 @@ public class TeamOrchestrator : MonoBehaviour
         m_boundingBoxMultiplier++;
     }
 
-    //public SearchGridBoundingBox GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)
-    //{
-    //    // Mettre un check 
-    //
-    //    SearchGridBoundingBox searchGridBoundingBox = new SearchGridBoundingBox();
-    //
-    //    searchGridBoundingBox.Min = FindClosestCellToApproximatePosition(min);
-    //    searchGridBoundingBox.Max = FindClosestCellToApproximatePosition(max);
-    //
-    //    return searchGridBoundingBox;
-    //}
-
     private Vector2Int FindClosestCellToApproximatePosition(Vector2 approximatePosition)
     {
         float minDistance = float.MaxValue;
@@ -268,8 +238,6 @@ public class TeamOrchestrator : MonoBehaviour
             Instantiate(m_gridMarker, new Vector3(gridCellPosition.x, gridCellPosition.y, 0.0f), Quaternion.identity);
         }
     }
-    
-
 }
 
 
@@ -278,8 +246,7 @@ public class SearchGridCell
     public int X { get; private set; }
     public int Y { get; private set; }
     public bool GridCellAssignedForSearch { get; set; } = false;
-    public bool PositionSearched { get; set; } = false;
-
+    
     public SearchGridCell(int x, int y)
     {
         X = x;
@@ -291,23 +258,6 @@ public class SearchGridBoundingBox
 {
     public Vector2Int Min { get; set; }
     public Vector2Int Max { get; set; }
-
 }
-
-
-//public struct SearchGridCell
-//{
-//    public Vector2 GridPosition { get; set; }
-//    public bool GridCellAssignedForSearch { get; set; }
-//    public bool PositionSearched { get; set; }    
-//
-//    public SearchGridCell(Vector2 position)
-//    {
-//        GridPosition = position;
-//        GridCellAssignedForSearch = false;
-//        PositionSearched = false;
-//    }
-//}
-
 
 

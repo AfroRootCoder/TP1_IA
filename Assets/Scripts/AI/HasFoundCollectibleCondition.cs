@@ -1,5 +1,4 @@
 using MBT;
-using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("")]
@@ -12,8 +11,6 @@ public class HasFoundCollectibleCondition : Condition
 
     public override bool Check()
     {
-        //return TeamOrchestrator._Instance.KnownCollectibles.Count > 0;
-
         if (TeamOrchestrator._Instance.KnownCollectibles.Count == 0 ||
             m_hasBeenAssigned.Value == false)
         {
@@ -21,8 +18,5 @@ public class HasFoundCollectibleCondition : Condition
         }
 
         return true;
-
-
-
     }
 }

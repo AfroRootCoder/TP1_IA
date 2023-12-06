@@ -1,8 +1,5 @@
 using MBT;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Worker : MonoBehaviour
 {
@@ -34,12 +31,7 @@ public class Worker : MonoBehaviour
     private void OnValidate()
     {
         m_radiusDebugTransform.localScale = new Vector3(m_radius, m_radius, m_radius);
-    }
-
-    private void Start()
-    {
-        //TeamOrchestrator._Instance.WorkersList.Add(this);
-    }
+    }    
 
     private void FixedUpdate()
     {

@@ -14,7 +14,7 @@ public class PlaceCamp : Leaf
     {
         Instantiate(m_campPrefab, transform.position, Quaternion.identity);
         TeamOrchestrator._Instance.OnCampPlaced();
-        m_assignedToBuildCamp.Value = false; //
+        m_assignedToBuildCamp.Value = false;
         return NodeResult.success;
     }
 }

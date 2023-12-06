@@ -537,10 +537,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_scoreText: {fileID: 153566360}
   m_remainingTimeText: {fileID: 1264221022}
-  m_timeScale: 20
+  m_timeScale: 1
   m_workerPrefab: {fileID: 6152492823319311160, guid: c8aa60fecc0d0c347af67549404eb1f1, type: 3}
   m_gridMarker: {fileID: 8597453574975943028, guid: 1e7ae302b0814a54fb684fafb6da8ac4, type: 3}
-  <InitialBoundingBoxAreaPercentage>k__BackingField: 50
   <BoundingBoxMin>k__BackingField: {x: -50, y: -50}
   <BoundingBoxMax>k__BackingField: {x: 50, y: 50}
 --- !u!4 &325813586

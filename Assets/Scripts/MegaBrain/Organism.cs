@@ -3,6 +3,8 @@ using Vector2 = UnityEngine.Vector2;
 
 public class Organisms
 {
+    private const int WORKER_DISTANCE_PER_SECOND = 5;
+    private const int COOLDOWN_TIME = 5;
     private int m_collectiblesAmount;
     private List<Vector2> m_assignedCollectibles;
     private Vector2 m_campPlacement;
@@ -64,6 +66,6 @@ public class Organisms
     {
         float distance = Vector2.Distance(collectiblePos, m_campPlacement);
 
-        return 5 - (distance / 5); //CooldownTime - (distance / worker distance per second)
+        return COOLDOWN_TIME - (distance / WORKER_DISTANCE_PER_SECOND);
     }
 }

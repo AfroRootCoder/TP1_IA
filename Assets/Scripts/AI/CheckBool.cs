@@ -8,7 +8,6 @@ public class CheckBool : Condition
     [SerializeField]
     private BoolReference m_bool;
 
-
     public override bool Check()
     {
         return m_bool.Value;

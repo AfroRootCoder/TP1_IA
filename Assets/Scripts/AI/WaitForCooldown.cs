@@ -1,11 +1,8 @@
 using MBT;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [AddComponentMenu("")]
 [MBTNode(name = "Engin2/WaitForCooldown")]
-
 public class WaitForCooldown : Leaf
 {
     public FloatReference time;

@@ -3,7 +3,6 @@ using MBT;
 
 [AddComponentMenu("")]
 [MBTNode(name = "Engin2/Has nearest camp condition")]
-
 public class HasCampNearCondition : Condition
 {
     [SerializeField]
@@ -12,8 +11,6 @@ public class HasCampNearCondition : Condition
     private TransformReference m_workerTransform = new TransformReference();
     [SerializeField]
     private FloatReference m_maximumDistance = new FloatReference();
-
-
 
 
     public override bool Check()
@@ -27,5 +24,4 @@ public class HasCampNearCondition : Condition
 
         return false;
     }
-
 }

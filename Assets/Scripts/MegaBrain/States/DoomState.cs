@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -56,7 +55,6 @@ public class DoomState : BrainState
     }
     public override bool CanExit()
     {
-        return false;
-        //To check
+        return false;        
     }
 }
