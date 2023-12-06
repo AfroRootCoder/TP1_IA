@@ -76,6 +76,10 @@ GameObject:
   - component: {fileID: 8353397377547449741}
   - component: {fileID: 624184042086815866}
   - component: {fileID: 5499246071319606904}
+  - component: {fileID: 3450391700860427573}
+  - component: {fileID: 2897509729674630369}
+  - component: {fileID: 6045533994762630873}
+  - component: {fileID: 7366980813143613034}
   m_Layer: 0
   m_Name: Brain
   m_TagString: Untagged
@@ -110,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedEditorNode: {fileID: 9101555144625038862}
+  selectedEditorNode: {fileID: 7366980813143613034}
   repeatOnFinish: 0
   maxExecutionsPerTick: 60
   parent: {fileID: 0}
@@ -271,7 +275,7 @@ MonoBehaviour:
     height: 45
   parent: {fileID: 4758612399824635840}
   children:
-  - {fileID: 1699639668602215441}
+  - {fileID: 3450391700860427573}
   - {fileID: 8353397377547449741}
   behaviourTree: {fileID: 0}
   runtimePriority: 0
@@ -684,7 +688,7 @@ MonoBehaviour:
     y: 280
     width: 160
     height: 45
-  parent: {fileID: 8353397377547449741}
+  parent: {fileID: 0}
   children:
   - {fileID: 6917316948947902818}
   - {fileID: 4899425305024610894}
@@ -1383,11 +1387,11 @@ MonoBehaviour:
   title: Is In DoomState Condition
   rect:
     serializedVersion: 2
-    x: -200
-    y: 0
+    x: -820
+    y: 180
     width: 160
     height: 45
-  parent: {fileID: 6993652753897093175}
+  parent: {fileID: 3450391700860427573}
   children:
   - {fileID: 8007792977127265525}
   behaviourTree: {fileID: 0}
@@ -1848,7 +1852,7 @@ MonoBehaviour:
   parent: {fileID: 6993652753897093175}
   children:
   - {fileID: 4967796020894217486}
-  - {fileID: 4399798736894392673}
+  - {fileID: 2897509729674630369}
   behaviourTree: {fileID: 0}
   runtimePriority: 0
   breakpoint: 0
@@ -1917,6 +1921,132 @@ MonoBehaviour:
     constantValue: 1
   randomDeviation: 0
   continueOnRestart: 0
+--- !u!114 &3450391700860427573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977622099099853166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3b35952a82928f4698379f2c189e0e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Check For Collectibles
+  rect:
+    serializedVersion: 2
+    x: 20
+    y: 20
+    width: 160
+    height: 45
+  parent: {fileID: 6993652753897093175}
+  children:
+  - {fileID: 1699639668602215441}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+--- !u!114 &2897509729674630369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977622099099853166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c78c7da6b00e1b46bad07949050f82f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Sequence
+  rect:
+    serializedVersion: 2
+    x: 700
+    y: 200
+    width: 160
+    height: 45
+  parent: {fileID: 8353397377547449741}
+  children:
+  - {fileID: 6045533994762630873}
+  - {fileID: 7366980813143613034}
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  random: 0
+--- !u!114 &6045533994762630873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977622099099853166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b574e4285cb9a94f9ff4c8f34fa4070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Find Unsearched Grid Position In Proximity And Inside Bounding Box
+  rect:
+    serializedVersion: 2
+    x: 600
+    y: 260
+    width: 160
+    height: 73
+  parent: {fileID: 2897509729674630369}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  m_agentTransform:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 520183966280794590}
+    key: AgentTransform
+    constantValue: {fileID: 0}
+  m_targetPosition2D:
+    useConstant: 0
+    mode: 1
+    blackboard: {fileID: 520183966280794590}
+    key: TargetPosition2D
+    constantValue: {x: 0, y: 0}
+--- !u!114 &7366980813143613034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977622099099853166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5153e1372194aba43b420cfc075cd285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Move Towards 2D
+  rect:
+    serializedVersion: 2
+    x: 780
+    y: 280
+    width: 160
+    height: 45
+  parent: {fileID: 2897509729674630369}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  targetPosition:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 520183966280794590}
+    key: TargetPosition2D
+    constantValue: {x: 0, y: 0}
+  transformToMove:
+    useConstant: 0
+    mode: 0
+    blackboard: {fileID: 520183966280794590}
+    key: AgentTransform
+    constantValue: {fileID: 0}
+  speed: 0.1
+  minDistance: 0
 --- !u!1 &4157857182145598295
 GameObject:
   m_ObjectHideFlags: 0

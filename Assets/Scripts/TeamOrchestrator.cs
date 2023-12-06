@@ -7,8 +7,8 @@ using UnityEngine;
 public class TeamOrchestrator : MonoBehaviour
 {
     private const int BOUNDING_BOX_INCREMENTATION = 50;
-    private const float MIN_OBJECTS_DISTANCE = 0.1f; // remettre à 2.0f!!!!
-    public const int MAX_WORKERS = 10;
+    private const float MIN_OBJECTS_DISTANCE = 2.0f; // remettre à 2.0f!!!!
+    public const int MAX_WORKERS = 40;
     public const int WORKERS_STARTING_AMOUNT = 5;
 
     public List<Collectible> KnownCollectibles { get; private set; } = new List<Collectible>();
@@ -170,12 +170,6 @@ public class TeamOrchestrator : MonoBehaviour
         }
     }
 
-    public void OnWorkerCreated()
-    {
-        //TODO élèves. À vous de trouver quand utiliser cette méthode et l'utiliser.
-        m_score -= MapGenerator.WORKER_COST;
-    }
-
     public void GenerateSearchGrid(int mapDimensionValue)
     {
         Debug.Log("Map dimension value in Search grid : " + mapDimensionValue);
@@ -221,8 +215,8 @@ public class TeamOrchestrator : MonoBehaviour
 
     public void GenerateSearchGridAreaBoundingBox(Vector2 min, Vector2 max)
     {
-        SearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(BoundingBoxMin);
-        SearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(BoundingBoxMax);
+        SearchGridAreaBoundingBox.Min = FindClosestCellToApproximatePosition(min);
+        SearchGridAreaBoundingBox.Max = FindClosestCellToApproximatePosition(max);
     }
 
     public void IncrementBoundingBox()

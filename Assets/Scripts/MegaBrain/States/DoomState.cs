@@ -52,7 +52,7 @@ public class DoomState : BrainState
 
     public override bool CanEnter(IState currentState)
     {
-        return TeamOrchestrator._Instance.GetRemainingTime() < 300.0f;
+        return TeamOrchestrator._Instance.GetRemainingTime() < 100.0f;
     }
     public override bool CanExit()
     {

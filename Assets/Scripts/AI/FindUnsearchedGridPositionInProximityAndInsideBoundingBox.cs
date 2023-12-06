@@ -72,7 +72,7 @@ public class FindUnsearchedGridPositionInProximityAndInsideBoundingBox : Leaf
 
         if (nearestPosition == Vector2Int.zero)
         {
-            TeamOrchestrator._Instance.IncrementBoundingBox();
+            m_teamOrchestrator.IncrementBoundingBox();
         }
 
         return nearestPosition;
